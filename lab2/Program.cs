@@ -33,6 +33,16 @@ namespace lab2
             int base2Num = Convert.ToInt32(Console.ReadLine());
             taskThree.ComputeFromBaseToBase(inputStringTask3, base1Num, base2Num);
             Console.WriteLine("\n--------------------------\n");
+
+            Console.WriteLine("\n--------- Task 4 ---------\n");
+            string? inputStringTask4 = null;
+            while(inputStringTask4 == null)
+            {
+                Console.Write("String to convert from ASCII to base 10: ");
+                inputStringTask4 = Console.ReadLine();
+            }
+            Console.WriteLine("Sum of entered string: {0}", TaskFour.ComputeSumFromString(inputStringTask4));
+            Console.WriteLine("\n--------------------------\n");
         }
     }
 }
