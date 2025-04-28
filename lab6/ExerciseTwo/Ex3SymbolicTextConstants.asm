@@ -1,7 +1,7 @@
 ;-------------------------------------------------------------
 ; 3. Symbolic Text Constants
-; Write a program that defines symbolic names for several 
-; string literals (characters between quotes). Use each 
+; Write a program that defines symbolic names for several
+; string literals (characters between quotes). Use each
 ; symbolic name in a variable definition.
 ;-------------------------------------------------------------
 
@@ -21,21 +21,55 @@ section .data
     input_prompt db PROMPT, 0         ; Becomes: db "Enter your name: ", 0
     exit_message db FAREWELL, 0       ; Becomes: db "Goodbye!", 0
     version_info db "Program Version: ", VERSION, 0  ; Combined string
-    
-    msg db "Symbolic text constants example", 10
-    msg_len equ $ - msg
+   
+    header db "Symbolic text constants example:", 10, 0
+    format db "%s", 10, 0
 
 section .text
-global _start
+global Start
+extern printf
+extern ExitProcess
 
-_start:
-    mov rax, 1              ; syscall: write
-    mov rdi, 1              ; file descriptor: stdout
-    mov rsi, msg            ; message to write
-    mov rdx, msg_len        ; message length
-    syscall
+Start:
+    ; Reserve stack space
+    sub rsp, 40
     
-    ; Exit program
-    mov rax, 60             ; syscall: exit
-    xor rdi, rdi            ; return code 0
-    syscall
+    ; Display header
+    lea rcx, [rel header]
+    xor rax, rax
+    call printf
+    
+    ; Display greeting message
+    lea rcx, [rel format]
+    lea rdx, [rel greeting_msg]
+    xor rax, rax
+    call printf
+    
+    ; Display error message
+    lea rcx, [rel format]
+    lea rdx, [rel error_message]
+    xor rax, rax
+    call printf
+    
+    ; Display input prompt
+    lea rcx, [rel format]
+    lea rdx, [rel input_prompt]
+    xor rax, rax
+    call printf
+    
+    ; Display exit message
+    lea rcx, [rel format]
+    lea rdx, [rel exit_message]
+    xor rax, rax
+    call printf
+    
+    ; Display version info
+    lea rcx, [rel format]
+    lea rdx, [rel version_info]
+    xor rax, rax
+    call printf
+    
+    ; Restore stack and exit
+    add rsp, 40
+    xor rcx, rcx
+    call ExitProcess
