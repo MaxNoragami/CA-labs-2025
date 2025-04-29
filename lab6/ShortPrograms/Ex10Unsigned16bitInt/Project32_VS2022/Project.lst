@@ -1,0 +1,73 @@
+Microsoft (R) Macro Assembler Version 14.43.34809.0	    04/29/25 23:03:57
+Code.asm						     Page 1 - 1
+
+
+				;// ------------------------------------------------------------ -
+				;// 10. Declare an unsigned 16 - bit integer variable named
+				;// wArray that uses three initializers.
+				;// ------------------------------------------------------------ -
+
+				.386
+				.model flat, stdcall
+				.stack 4096
+				ExitProcess proto, dwExitCode:dword
+
+ 00000000			.data
+ 00000000 1234 5678 9ABC	wArray WORD 1234h, 5678h, 9ABCh	;// Array of 3 WORD values (16-bit unsigned integers)
+
+ 00000000			.code
+ 00000000			main proc
+				;// We can access elements if needed
+ 00000000  66| A1		mov ax, wArray					;// First element (index 0)
+	   00000000 R
+ 00000006  66| 8B 1D		mov bx, wArray + 2				;// Second element (index 1)
+	   00000002 R
+ 0000000D  66| 8B 0D		mov cx, wArray + 4				;// Third element (index 2)
+	   00000004 R
+
+				invoke ExitProcess, 0
+ 00000014  6A 00	   *	    push   +000000000h
+ 00000016  E8 00000000 E   *	    call   ExitProcess
+ 0000001B			main endp
+				end main
+Microsoft (R) Macro Assembler Version 14.43.34809.0	    04/29/25 23:03:57
+Code.asm						     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+FLAT . . . . . . . . . . . . . .	GROUP
+STACK  . . . . . . . . . . . . .	32 Bit	 00001000 DWord	  Stack	  'STACK'	 
+_DATA  . . . . . . . . . . . . .	32 Bit	 00000006 DWord	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 0000001B DWord	  Public  'CODE'	
+
+
+Procedures, parameters, and locals:
+
+                N a m e                 Type     Value    Attr
+
+ExitProcess  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+main . . . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 0000001B Public STDCALL
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 00000000h   
+@DataSize  . . . . . . . . . . .	Number	 00000000h   
+@Interface . . . . . . . . . . .	Number	 00000003h   
+@Model . . . . . . . . . . . . .	Number	 00000007h   
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 FLAT
+@fardata?  . . . . . . . . . . .	Text   	 FLAT
+@fardata . . . . . . . . . . . .	Text   	 FLAT
+@stack . . . . . . . . . . . . .	Text   	 FLAT
+wArray . . . . . . . . . . . . .	Word	 00000000 _DATA	
+
+	   0 Warnings
+	   0 Errors

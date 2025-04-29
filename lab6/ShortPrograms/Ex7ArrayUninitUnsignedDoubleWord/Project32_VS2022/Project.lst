@@ -1,0 +1,76 @@
+Microsoft (R) Macro Assembler Version 14.43.34809.0	    04/29/25 22:51:32
+Code.asm						     Page 1 - 1
+
+
+				;// ------------------------------------------------------------ -
+				;// 7. Declare an array of 120 uninitialized unsigned doubleword
+				;// values.
+				;// ------------------------------------------------------------ -
+
+				.386
+				.model flat, stdcall
+				.stack 4096
+				ExitProcess proto, dwExitCode:dword
+
+ 00000000			.data
+				;// Array of 120 uninitialized DWORD values
+ 00000000  00000078 [		myArray DWORD 120 DUP(? )	;// Using DUP operator with ? to create uninitialized array
+	    00000000
+	   ]
+
+ 00000000			.code
+ 00000000			main proc
+				;// We can access elements if needed
+ 00000000  B8 00000000 R	mov eax, OFFSET myArray		;// Get the array's base address
+
+				;// Optional: access some array elements
+ 00000005  8B 18		mov ebx, [eax]				;// First element (index 0)
+ 00000007  8B 48 04		mov ecx, [eax + 4]			;// Second element (index 1)
+ 0000000A  8B 90 000001DC	mov edx, [eax + 476]		;// Last element (index 119, offset = 119*4)
+
+				invoke ExitProcess, 0
+ 00000010  6A 00	   *	    push   +000000000h
+ 00000012  E8 00000000 E   *	    call   ExitProcess
+ 00000017			main endp
+				end main
+Microsoft (R) Macro Assembler Version 14.43.34809.0	    04/29/25 22:51:32
+Code.asm						     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+FLAT . . . . . . . . . . . . . .	GROUP
+STACK  . . . . . . . . . . . . .	32 Bit	 00001000 DWord	  Stack	  'STACK'	 
+_DATA  . . . . . . . . . . . . .	32 Bit	 000001E0 DWord	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 00000017 DWord	  Public  'CODE'	
+
+
+Procedures, parameters, and locals:
+
+                N a m e                 Type     Value    Attr
+
+ExitProcess  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+main . . . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 00000017 Public STDCALL
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 00000000h   
+@DataSize  . . . . . . . . . . .	Number	 00000000h   
+@Interface . . . . . . . . . . .	Number	 00000003h   
+@Model . . . . . . . . . . . . .	Number	 00000007h   
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 FLAT
+@fardata?  . . . . . . . . . . .	Text   	 FLAT
+@fardata . . . . . . . . . . . .	Text   	 FLAT
+@stack . . . . . . . . . . . . .	Text   	 FLAT
+myArray  . . . . . . . . . . . .	DWord	 00000000 _DATA	
+
+	   0 Warnings
+	   0 Errors

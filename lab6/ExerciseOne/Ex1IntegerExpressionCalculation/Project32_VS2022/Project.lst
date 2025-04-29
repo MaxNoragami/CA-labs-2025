@@ -1,0 +1,79 @@
+Microsoft (R) Macro Assembler Version 14.43.34809.0	    04/29/25 23:35:21
+Code.asm						     Page 1 - 1
+
+
+				;// ------------------------------------------------------------ -
+				;// 1. Integer Expression Calculation
+				;// Using the AddTwo program from Section 3.2 as a reference,
+				;// write a program that calculates the following expression,
+				;// using registers: A = (A + B) ?(C + D). Assign integer values
+				;// to the EAX, EBX, ECX, and EDX registers
+				;// ------------------------------------------------------------ -
+
+				.386
+				.model flat, stdcall
+				.stack 4096
+				ExitProcess proto, dwExitCode:dword
+
+ 00000000			.code
+ 00000000			main proc
+				;// Assign initial values to registers
+ 00000000  B8 0000000A		mov eax, 10	;// Initialize A = 10
+ 00000005  BB 00000005		mov ebx, 5	;// Initialize B = 5
+ 0000000A  B9 00000003		mov ecx, 3	;// Initialize C = 3
+ 0000000F  BA 00000002		mov edx, 2	;// Initialize D = 2
+
+				;// Calculate (A + B)
+ 00000014  03 C3		add eax, ebx	;// EAX = EAX + EBX = A + B = 15
+
+				;// Calculate (C + D)
+ 00000016  03 CA		add ecx, edx	;// ECX = ECX + EDX = C + D = 5
+
+				;// Calculate (A + B) - (C + D)
+ 00000018  2B C1		sub eax, ecx	;// EAX = EAX - ECX = (A + B) - (C + D) = 15 - 5 = 10
+
+				invoke ExitProcess, 0
+ 0000001A  6A 00	   *	    push   +000000000h
+ 0000001C  E8 00000000 E   *	    call   ExitProcess
+ 00000021			main endp
+				end main
+Microsoft (R) Macro Assembler Version 14.43.34809.0	    04/29/25 23:35:21
+Code.asm						     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+FLAT . . . . . . . . . . . . . .	GROUP
+STACK  . . . . . . . . . . . . .	32 Bit	 00001000 DWord	  Stack	  'STACK'	 
+_DATA  . . . . . . . . . . . . .	32 Bit	 00000000 DWord	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 00000021 DWord	  Public  'CODE'	
+
+
+Procedures, parameters, and locals:
+
+                N a m e                 Type     Value    Attr
+
+ExitProcess  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+main . . . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 00000021 Public STDCALL
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 00000000h   
+@DataSize  . . . . . . . . . . .	Number	 00000000h   
+@Interface . . . . . . . . . . .	Number	 00000003h   
+@Model . . . . . . . . . . . . .	Number	 00000007h   
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 FLAT
+@fardata?  . . . . . . . . . . .	Text   	 FLAT
+@fardata . . . . . . . . . . . .	Text   	 FLAT
+@stack . . . . . . . . . . . . .	Text   	 FLAT
+
+	   0 Warnings
+	   0 Errors

@@ -1,0 +1,115 @@
+Microsoft (R) Macro Assembler Version 14.43.34809.0	    04/30/25 00:22:59
+Code.asm						     Page 1 - 1
+
+
+				;// ------------------------------------------------------------ -
+				;// 3. Symbolic Text Constants
+				;// Write a program that defines symbolic names for several
+				;// string literals(characters between quotes). Use each
+				;// symbolic name in a variable definition.
+				;// ------------------------------------------------------------ -
+
+				.386
+				.model flat, stdcall
+				.stack 4096
+				ExitProcess proto, dwExitCode:dword
+
+				;// Define symbolic names for string literals using TEXTEQU
+ = "Hello, World"		GREETING TEXTEQU <"Hello, World!">
+ = "John Doe"			USERNAME TEXTEQU <"John Doe">
+ = "Welcome to Assembly Pro	MESSAGE TEXTEQU <"Welcome to Assembly Programming">
+   gramming"
+ = "An error has occurred"	ERROR_MSG TEXTEQU <"An error has occurred">
+ = "Operation completed suc	SUCCESS_MSG TEXTEQU <"Operation completed successfully">
+   cessfully"
+
+ 00000000			.data
+				;// Use each symbolic name in variable definitions
+ 00000000 48 65 6C 6C 6F	greetingStr BYTE GREETING, 0		;// Null-terminated string
+	   2C 20 57 6F 72
+	   6C 64 00
+ 0000000D 4A 6F 68 6E 20	userStr BYTE USERNAME, 0			;// Null-terminated string
+	   44 6F 65 00
+ 00000016 57 65 6C 63 6F	welcomeMsg BYTE MESSAGE, 0		;// Null-terminated string
+	   6D 65 20 74 6F
+	   20 41 73 73 65
+	   6D 62 6C 79 20
+	   50 72 6F 67 72
+	   61 6D 6D 69 6E
+	   67 00
+ 00000036 41 6E 20 65 72	errorText BYTE ERROR_MSG, 0		;// Null-terminated string
+	   72 6F 72 20 68
+	   61 73 20 6F 63
+	   63 75 72 72 65
+	   64 00
+ 0000004C 4F 70 65 72 61	successText BYTE SUCCESS_MSG, 0	;// Null-terminated string
+	   74 69 6F 6E 20
+	   63 6F 6D 70 6C
+	   65 74 65 64 20
+	   73 75 63 63 65
+	   73 73 66 75 6C
+	   6C 79 00
+
+ 00000000			.code
+ 00000000			main proc
+				;// Demonstrate usage by loading addresses of strings
+ 00000000  B8 00000000 R	mov eax, OFFSET greetingStr		;// Address of greeting string
+ 00000005  BB 0000000D R	mov ebx, OFFSET userStr			;// Address of username string
+ 0000000A  B9 00000016 R	mov ecx, OFFSET welcomeMsg		;// Address of welcome message
+ 0000000F  BA 00000036 R	mov edx, OFFSET errorText		;// Address of error message
+
+				invoke ExitProcess, 0
+ 00000014  6A 00	   *	    push   +000000000h
+ 00000016  E8 00000000 E   *	    call   ExitProcess
+ 0000001B			main endp
+				end main
+Microsoft (R) Macro Assembler Version 14.43.34809.0	    04/30/25 00:22:59
+Code.asm						     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+FLAT . . . . . . . . . . . . . .	GROUP
+STACK  . . . . . . . . . . . . .	32 Bit	 00001000 DWord	  Stack	  'STACK'	 
+_DATA  . . . . . . . . . . . . .	32 Bit	 0000006D DWord	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 0000001B DWord	  Public  'CODE'	
+
+
+Procedures, parameters, and locals:
+
+                N a m e                 Type     Value    Attr
+
+ExitProcess  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+main . . . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 0000001B Public STDCALL
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 00000000h   
+@DataSize  . . . . . . . . . . .	Number	 00000000h   
+@Interface . . . . . . . . . . .	Number	 00000003h   
+@Model . . . . . . . . . . . . .	Number	 00000007h   
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 FLAT
+@fardata?  . . . . . . . . . . .	Text   	 FLAT
+@fardata . . . . . . . . . . . .	Text   	 FLAT
+@stack . . . . . . . . . . . . .	Text   	 FLAT
+ERROR_MSG  . . . . . . . . . . .	Text   	 "An error has occurred"
+GREETING . . . . . . . . . . . .	Text   	 "Hello, World"
+MESSAGE  . . . . . . . . . . . .	Text   	 "Welcome to Assembly Programming"
+SUCCESS_MSG  . . . . . . . . . .	Text   	 "Operation completed successfully"
+USERNAME . . . . . . . . . . . .	Text   	 "John Doe"
+errorText  . . . . . . . . . . .	Byte	 00000036 _DATA	
+greetingStr  . . . . . . . . . .	Byte	 00000000 _DATA	
+successText  . . . . . . . . . .	Byte	 0000004C _DATA	
+userStr  . . . . . . . . . . . .	Byte	 0000000D _DATA	
+welcomeMsg . . . . . . . . . . .	Byte	 00000016 _DATA	
+
+	   0 Warnings
+	   0 Errors

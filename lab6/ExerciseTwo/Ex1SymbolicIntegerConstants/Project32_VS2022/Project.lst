@@ -1,0 +1,106 @@
+Microsoft (R) Macro Assembler Version 14.43.34809.0	    04/30/25 00:11:56
+Code.asm						     Page 1 - 1
+
+
+				;// ------------------------------------------------------------ -
+				;// 1. Symbolic Integer Constants
+				;// Write a program that defines symbolic constants for all
+				;// seven days of the week. Create an array variable that uses
+				;// the symbols as initializers.
+				;// ------------------------------------------------------------ -
+
+				.386
+				.model flat, stdcall
+				.stack 4096
+				ExitProcess proto, dwExitCode:dword
+
+				;// Define symbolic constants for days of the week
+ = 00000000			SUNDAY = 0
+ = 00000001			MONDAY = 1
+ = 00000002			TUESDAY = 2
+ = 00000003			WEDNESDAY = 3
+ = 00000004			THURSDAY = 4
+ = 00000005			FRIDAY = 5
+ = 00000006			SATURDAY = 6
+
+ 00000000			.data
+				;// Create an array initialized with the symbolic constants
+ 00000000 00000000		daysArray DWORD SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY
+	   00000001
+	   00000002
+	   00000003
+	   00000004
+	   00000005
+	   00000006
+
+ 00000000			.code
+ 00000000			main proc
+				;// Load days directly into registers - first four days
+ 00000000  B8 00000000		mov eax, SUNDAY			;// EAX = SUNDAY (0)
+ 00000005  BB 00000001		mov ebx, MONDAY			;// EBX = MONDAY (1)
+ 0000000A  B9 00000002		mov ecx, TUESDAY			;// ECX = TUESDAY (2)
+ 0000000F  BA 00000003		mov edx, WEDNESDAY			;// EDX = WEDNESDAY (3)
+
+				;// Perform some operations with first four days
+ 00000014  83 C0 0A		add eax, 10				;// SUNDAY + 10 = 10
+ 00000017  F7 E3		mul ebx					;// MONDAY * (SUNDAY+10) = 1 * 10 = 10 (EAX now contains 10)
+ 00000019  03 CA		add ecx, edx				;// TUESDAY + WEDNESDAY = 2 + 3 = 5
+
+				;// Load the remaining days
+ 0000001B  B8 00000004		mov eax, THURSDAY			;// EAX = THURSDAY (4)
+ 00000020  BB 00000005		mov ebx, FRIDAY			;// EBX = FRIDAY (5)
+ 00000025  BA 00000006		mov edx, SATURDAY			;// EDX = SATURDAY (6)
+
+				invoke ExitProcess, 0
+ 0000002A  6A 00	   *	    push   +000000000h
+ 0000002C  E8 00000000 E   *	    call   ExitProcess
+ 00000031			main endp
+				end main
+Microsoft (R) Macro Assembler Version 14.43.34809.0	    04/30/25 00:11:56
+Code.asm						     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+FLAT . . . . . . . . . . . . . .	GROUP
+STACK  . . . . . . . . . . . . .	32 Bit	 00001000 DWord	  Stack	  'STACK'	 
+_DATA  . . . . . . . . . . . . .	32 Bit	 0000001C DWord	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 00000031 DWord	  Public  'CODE'	
+
+
+Procedures, parameters, and locals:
+
+                N a m e                 Type     Value    Attr
+
+ExitProcess  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+main . . . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 00000031 Public STDCALL
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 00000000h   
+@DataSize  . . . . . . . . . . .	Number	 00000000h   
+@Interface . . . . . . . . . . .	Number	 00000003h   
+@Model . . . . . . . . . . . . .	Number	 00000007h   
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 FLAT
+@fardata?  . . . . . . . . . . .	Text   	 FLAT
+@fardata . . . . . . . . . . . .	Text   	 FLAT
+@stack . . . . . . . . . . . . .	Text   	 FLAT
+FRIDAY . . . . . . . . . . . . .	Number	 00000005h   
+MONDAY . . . . . . . . . . . . .	Number	 00000001h   
+SATURDAY . . . . . . . . . . . .	Number	 00000006h   
+SUNDAY . . . . . . . . . . . . .	Number	 00000000h   
+THURSDAY . . . . . . . . . . . .	Number	 00000004h   
+TUESDAY  . . . . . . . . . . . .	Number	 00000002h   
+WEDNESDAY  . . . . . . . . . . .	Number	 00000003h   
+daysArray  . . . . . . . . . . .	DWord	 00000000 _DATA	
+
+	   0 Warnings
+	   0 Errors

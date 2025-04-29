@@ -1,0 +1,80 @@
+Microsoft (R) Macro Assembler Version 14.43.34809.0	    04/29/25 22:28:07
+Code.asm						     Page 1 - 1
+
+
+				; //------------------------------------------------------------ -
+				; // 1. Define four symbolic constants that represent integer 25
+				; // in decimal, binary, octal, and hexadecimal formats.
+				; //------------------------------------------------------------ -
+
+				.386
+				.model flat, stdcall
+				.stack 4096
+				ExitProcess proto, dwExitCode:dword
+
+				;// Define the constants for number 25
+ = 00000019			DECIMAL_25 = 25	;// Decimal format(base 10)
+ = 00000019			BINARY_25 = 11001b	;// Binary format(base 2)
+ = 00000019			OCTAL_25 = 31o		;// Octal format(base 8)
+ = 00000019			HEX_25 = 19h		;// Hexadecimal format(base 16)
+
+ 00000000			.code
+ 00000000			main proc
+				;// Move each constant to a different register so we can view them during debugging as 25 in the HEX form that's 19
+ 00000000  B8 00000019		mov eax, DECIMAL_25	;// EAX = 25 (decimal)
+ 00000005  BB 00000019		mov ebx, BINARY_25	;// EBX = 25 (binary format)
+ 0000000A  B9 00000019		mov ecx, OCTAL_25	;// ECX = 25 (octal format)
+ 0000000F  BA 00000019		mov edx, HEX_25	;// EDX = 25 (hex format)
+
+				;// You can verify that all registers contain the same value(25)
+				;// but were defined using different number representations
+
+				invoke ExitProcess, 0
+ 00000014  6A 00	   *	    push   +000000000h
+ 00000016  E8 00000000 E   *	    call   ExitProcess
+ 0000001B			main endp
+				end main
+Microsoft (R) Macro Assembler Version 14.43.34809.0	    04/29/25 22:28:07
+Code.asm						     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+FLAT . . . . . . . . . . . . . .	GROUP
+STACK  . . . . . . . . . . . . .	32 Bit	 00001000 DWord	  Stack	  'STACK'	 
+_DATA  . . . . . . . . . . . . .	32 Bit	 00000000 DWord	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 0000001B DWord	  Public  'CODE'	
+
+
+Procedures, parameters, and locals:
+
+                N a m e                 Type     Value    Attr
+
+ExitProcess  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+main . . . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 0000001B Public STDCALL
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 00000000h   
+@DataSize  . . . . . . . . . . .	Number	 00000000h   
+@Interface . . . . . . . . . . .	Number	 00000003h   
+@Model . . . . . . . . . . . . .	Number	 00000007h   
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 FLAT
+@fardata?  . . . . . . . . . . .	Text   	 FLAT
+@fardata . . . . . . . . . . . .	Text   	 FLAT
+@stack . . . . . . . . . . . . .	Text   	 FLAT
+BINARY_25  . . . . . . . . . . .	Number	 00000019h   
+DECIMAL_25 . . . . . . . . . . .	Number	 00000019h   
+HEX_25 . . . . . . . . . . . . .	Number	 00000019h   
+OCTAL_25 . . . . . . . . . . . .	Number	 00000019h   
+
+	   0 Warnings
+	   0 Errors

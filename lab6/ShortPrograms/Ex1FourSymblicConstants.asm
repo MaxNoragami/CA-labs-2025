@@ -2,7 +2,6 @@
 ; Define four symbolic constants that represent integer 25
 ; in decimal, binary, octal, and hexadecimal formats.
 ;-------------------------------------------------------------
-
 section .data
     format db "Number 25 in different formats:", 10
            db "Decimal: %d", 10
@@ -12,8 +11,8 @@ section .data
 
 section .text
 global Start                ; Exactly "Start" for GoLink
-extern printf
-extern ExitProcess
+extern printf               ; GoLink will find this in msvcrt.dll
+extern ExitProcess          ; GoLink will find this in kernel32.dll
 
 ; Define symbolic constants for the value 25 in different formats
 DECIMAL_25 equ 25          ; Decimal representation
@@ -22,22 +21,24 @@ OCTAL_25   equ 031         ; Octal representation (NASM syntax)
 HEX_25     equ 0x19        ; Hexadecimal representation (NASM syntax)
 
 Start:
-    ; Reserve stack space
-    sub rsp, 40
+    ; Save registers
+    push ebp
+    mov ebp, esp
     
-    ; Display all formats
-    lea rcx, [rel format]  ; Format string
-    mov rdx, DECIMAL_25    ; Decimal value - first %d
-    mov r8, BINARY_25      ; Binary value - second %d
-    mov r9, OCTAL_25       ; Octal value - third %d
-    
-    ; Fifth parameter on stack
-    mov rax, HEX_25
-    mov [rsp+32], rax      ; Hex value - fourth %d
-    
-    xor rax, rax           ; No floating point args
+    ; Push parameters to printf in reverse order (C calling convention)
+    push HEX_25            ; Hex value - fourth %d
+    push OCTAL_25          ; Octal value - third %d
+    push BINARY_25         ; Binary value - second %d
+    push DECIMAL_25        ; Decimal value - first %d
+    push format            ; Format string
     call printf
+    add esp, 20            ; Clean up stack (5 parameters * 4 bytes)
     
     ; Exit program
-    xor rcx, rcx           ; Return code 0
-    call ExitProcess
+    push 0                 ; Return code 0
+    call ExitProcess       ; No need to clean stack as we're exiting
+    
+    ; Never reached, but good practice
+    mov esp, ebp
+    pop ebp
+    ret
