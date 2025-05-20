@@ -7,7 +7,7 @@ INCLUDE Irvine32.inc                  ;// Include Irvine32 library for I/O and o
 
 .code
 main PROC
-    mov ecx, 10                       ;// Set ECX as counter to generate 20 strings in total
+    mov ecx, 10                       ;// Set ECX as counter to generate 10 strings in total
     
 generate_loop:
     ;// Display message prefix

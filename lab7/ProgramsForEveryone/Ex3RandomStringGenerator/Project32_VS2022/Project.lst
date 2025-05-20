@@ -1,4 +1,4 @@
-Microsoft (R) Macro Assembler Version 14.43.34809.0	    05/20/25 01:24:41
+Microsoft (R) Macro Assembler Version 14.43.34809.0	    05/20/25 13:39:01
 Code.asm						     Page 1 - 1
 
 
@@ -31,7 +31,7 @@ Code.asm						     Page 1 - 1
 
  00000000			.code
  00000000			main PROC
- 00000000  B9 0000000A		    mov ecx, 10                       ;// Set ECX as counter to generate 20 strings in total
+ 00000000  B9 0000000A		    mov ecx, 10                       ;// Set ECX as counter to generate 10 strings in total
 				    
  00000005			generate_loop:
 				    ;// Display message prefix
@@ -88,7 +88,7 @@ Code.asm						     Page 1 - 1
  00000054			RandomString ENDP
 
 				END main                              ;// End of the program, specifying main as the entry point
-Microsoft (R) Macro Assembler Version 14.43.34809.0	    05/20/25 01:24:41
+Microsoft (R) Macro Assembler Version 14.43.34809.0	    05/20/25 13:39:01
 Code.asm						     Symbols 2 - 1
 
 
